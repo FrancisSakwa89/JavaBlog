@@ -88,7 +88,7 @@
 
             <li class="nav-item">
 
-                <a class="nav-link " href="logout">LOGOUT</a>
+                <a class="nav-link " href="logout"><i class="fa.fa-power-off" style="color: red">LOGOUT</i></a>
 
             </li>
 

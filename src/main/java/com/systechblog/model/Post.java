@@ -1,7 +1,10 @@
 package com.systechblog.model;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +27,14 @@ public class Post {
     private String category;
     @ManyToOne
     private User user;
+    @CascadeOnDelete
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Comment> comments;
     @Temporal(TemporalType.DATE)
     @JsonbDateFormat
     private Date date;
+//    @Transient
+    private Time time;
 
     public Post() {
     }
@@ -79,6 +85,14 @@ public class Post {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public List<Comment> getComments() {

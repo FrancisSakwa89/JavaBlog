@@ -12,5 +12,6 @@ public interface BlogBeanI extends BeanI<Post> {
     List<Post> selectPostByCategory(long categoryId);
     Post selectPostByUser(User user);
     List<Post> readAll();
-    Post selectPost(String title);
+    Post deletePost(User user, Post post);
+    Post deletePostForUser(Post post, User user);
 }

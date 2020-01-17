@@ -62,7 +62,7 @@
 </table>
 
 <table class="table table-bordered" style="margin-left: 15%;width:70%">
-    <h2 style="text-align: center">Comments On Post</h2>
+    <h2 style="text-align: center">Comments On Post(${count})</h2>
     <thead>
     <tr>
         <th scope="col">Comment</th>

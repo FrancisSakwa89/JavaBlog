@@ -9,4 +9,5 @@ import javax.ejb.Local;
 public interface UserBeanI extends BeanI<User> {
     User selectUserByName(String uName);
     User getUserById(long userId);
+    void signup(String username, String password);
 }

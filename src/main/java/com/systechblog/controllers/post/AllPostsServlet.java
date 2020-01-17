@@ -1,7 +1,9 @@
 package com.systechblog.controllers.post;
 
 import com.systechblog.beans.blog.BlogBeanI;
+import com.systechblog.beans.comments.CommentBeanI;
 import com.systechblog.beans.user.UserBeanI;
+import com.systechblog.model.Comment;
 import com.systechblog.model.Post;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,12 +22,19 @@ public class AllPostsServlet extends HttpServlet {
     @EJB
     UserBeanI userBeanI;
 
+    @EJB
+    CommentBeanI commentBeanI;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             List<Post> posts = blogBeanI.readAll();
-
-            System.out.println(posts);
+            for (Post post:posts){
+                List<Comment> comments = commentBeanI.readAll(post);
+                int count = comments.size();
+//                System.out.println(count);
+                req.setAttribute("count", count);
+            }
             req.setAttribute("posts", posts);
             req.getRequestDispatcher("/views/posts/allPosts.jsp").forward(req, resp);
         } catch (Exception e) {

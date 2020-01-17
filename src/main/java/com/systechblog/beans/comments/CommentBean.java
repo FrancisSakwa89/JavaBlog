@@ -46,4 +46,14 @@ public class CommentBean extends Bean<Comment> implements CommentBeanI {
         return commentList;
 
     }
+
+    @Override
+    public Comment selectCommentBasedOnPost(Post post, User user) {
+        List<Comment> commentList = this
+                .entityManager
+                .createNamedQuery("NQ_ALL_COMMENTS")
+                .getResultList();
+        System.out.println("Successfully queried the comments..");
+        return commentList.size() > 0 ? commentList.get(0) : null;
+    }
 }

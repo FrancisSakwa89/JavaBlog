@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Date;
 
 @WebServlet(name = "addPost", urlPatterns = "/addPost")
@@ -42,12 +43,16 @@ public class AddPostServlet extends HttpServlet {
             long userId = user.getId();
             if (user != null) {
                 req.setAttribute("title", postTitle);
+                Time time = new Time(date.getTime());
                 Post post = new Post();
                 post.setTitle(postTitle);
                 post.setPostDetails(content);
                 post.setCategory(cat);
                 post.setDate(date);
                 post.setUser(user);
+                post.setTime(time);
+
+
                 try{
                     blogBeanI.add(post);
                     session.setAttribute("title", postTitle);
@@ -71,6 +76,8 @@ public class AddPostServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/views/posts/addPost.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/views/posts/addPost.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/posts/allPosts.jsp").forward(req, resp);
+
     }
 }

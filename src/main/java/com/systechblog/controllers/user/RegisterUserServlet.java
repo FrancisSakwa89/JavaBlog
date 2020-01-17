@@ -26,6 +26,7 @@ public class RegisterUserServlet extends HttpServlet {
         user.setPassword(password);
         if (password.equals(pass2)) {
             try {
+                userBeanI.signup(userName,password);
                 userBeanI.add(user);
                 System.out.println(" added user good.");
                 resp.sendRedirect("login");
@@ -33,8 +34,7 @@ public class RegisterUserServlet extends HttpServlet {
                 System.out.println("Error adding User..");
                 e.printStackTrace();
             }
-
-            resp.sendRedirect("login");
+            req.getRequestDispatcher("login").forward(req,resp);
 
         }else {
             System.out.println("wrong pass");

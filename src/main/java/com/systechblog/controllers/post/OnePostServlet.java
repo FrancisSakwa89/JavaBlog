@@ -40,7 +40,6 @@ public class OnePostServlet extends HttpServlet {
             comment.setPost(post);
             comment.setDate(date);
             comment.setUser(user);
-            System.out.println(comment);
             commentBeanI.add(comment);
             resp.sendRedirect("allPosts");
         } catch (Exception e) {
@@ -56,8 +55,10 @@ public class OnePostServlet extends HttpServlet {
             Post post = blogBeanI.read(id);
             req.setAttribute("post", post);
             List<Comment> comments = commentBeanI.readAll(post);
+            post.setComments(comments);
+            int count = comments.size();
+                req.setAttribute("count",  count);
             req.setAttribute("comments", comments);
-            System.out.println(comments);
         } catch (Exception e) {
             e.printStackTrace();
         }

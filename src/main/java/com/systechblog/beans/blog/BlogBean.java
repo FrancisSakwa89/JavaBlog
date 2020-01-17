@@ -17,6 +17,7 @@ import java.util.List;
 
 @Local
 @Stateless
+@SuppressWarnings("all")
 public class BlogBean extends Bean<Post> implements BlogBeanI {
     @EJB
     UserBeanI userBeanI;
@@ -67,13 +68,47 @@ public class BlogBean extends Bean<Post> implements BlogBeanI {
     }
 
     @Override
-    public Post selectPost(String title) {
+    public Post deletePost(User user, Post post) {
         List<Post> postList = this
                 .entityManager
-                .createNamedQuery("NQ_SELECT_POST_BY_TITLE")
-                .setParameter("title", title)
+                .createNamedQuery("NQ_SELECT_POST_BY_USER_ID")
+                .setParameter("user", user)
                 .getResultList();
-        logger.info("Found the post details queried the user..");
+        logger.info("Successfully queried the user's posts..");
+        try {
+            if (entityManager.contains(post)) {
+                entityManager.remove(post);
+                delete(post);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return postList.size() > 0 ? postList.get(0) : null;
     }
+
+    @Override
+    public Post deletePostForUser(Post post, User user) {
+        this
+                .entityManager
+                .createNamedQuery("NQ_SELECT_POST_BY_USER_ID")
+                .setParameter("user", user)
+                .getResultList();
+//        logger.info("Successfully queried the user's posts..");
+        try {
+//            if (entityManager.contains(post)) {
+//                entityManager.remove(post);
+//                entityManager.refresh(post);
+//                entityManager.merge(post);
+                delete(post);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+//        return postList.size() > 0 ? postList.get(0) : null;
+        return post;
+    }
 }
+
+
+

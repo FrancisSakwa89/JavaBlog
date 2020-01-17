@@ -53,10 +53,13 @@ public class Bean<T> implements BeanI<T> {
     @Override
     public boolean delete(T t) {
         try {
-            entityManager.remove(t);
-            return true;
-        }catch (PersistenceException e){
+            if (entityManager.contains(t)) {
+                entityManager.remove(t);
+                return true;
+            }
+        } catch (PersistenceException e) {
             return false;
         }
+        return false;
     }
 }
