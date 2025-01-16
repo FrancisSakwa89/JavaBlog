@@ -32,7 +32,7 @@
 <br><br><br>
 <br><br><br>
 <div class="jumbotron" style="text-align: center; margin-left: 20%; margin-right: 20%">
-    <h2>Blog Not Update</h2>
+    <h2>Blog Not Updated</h2>
     <!-- Card -->
     <div class="card promoting-card">
 
